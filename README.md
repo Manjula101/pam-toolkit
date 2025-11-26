@@ -12,7 +12,7 @@ Zero-standing-privilege automation suite built across CrowdStrike, FortiOS, Jump
 | FortiOS        | External threat feed + auto-block  | [#407](https://github.com/fortinet-ansible-dev/ansible-galaxy-fortios-collection/pull/407) |
 | JumpServer     | Azure AD SAML lab configuration    | [#16258](https://github.com/jumpserver/jumpserver/pull/16258) |
 | JumpServer     | English SAML docs (promoted)       | [#16269](https://github.com/jumpserver/jumpserver/pull/16269) |
-| JumpServer     | add Ansible playbook to tag suspicious assets from Emerging Threats | [16283](https://github.com/jumpserver/jumpserver/pull/16283) |
+| JumpServer     | add Ansible playbook to tag suspicious assets from Emerging Threats | [#16283](https://github.com/jumpserver/jumpserver/pull/16283) |
 | JumpServer     | add session monitoring + alerting playbook | [#16283](https://github.com/jumpserver/jumpserver/pull/16290) |
 | Teleport       | Full JIT + approval workflow       | [#61727](https://github.com/gravitational/teleport/pull/61727) |
 | OPA            | Policy as Code for root access     | [#8073](https://github.com/open-policy-agent/opa/pull/8073) |
