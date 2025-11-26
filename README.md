@@ -8,6 +8,7 @@ Zero-standing-privilege automation suite built across CrowdStrike, FortiOS, Jump
 |----------------|------------------------------------|-------------|
 | CrowdStrike    | Noisy hosts detection              | [#1391](https://github.com/CrowdStrike/falconpy/pull/1391) |
 | CrowdStrike    | Session replay                     | [#1394](https://github.com/CrowdStrike/falconpy/pull/1394) |
+| FortiOS        | Auto-block malicious IPs           | [#406](https://github.com/fortinet-ansible-dev/ansible-galaxy-fortios-collection/pull/406) |
 | FortiOS        | External threat feed + auto-block  | [#407](https://github.com/fortinet-ansible-dev/ansible-galaxy-fortios-collection/pull/407) |
 | JumpServer     | English SAML docs (promoted)       | [#16269](https://github.com/jumpserver/jumpserver/pull/16269) |
 | Teleport       | Full JIT + approval workflow       | [#61727](https://github.com/gravitational/teleport/pull/61727) |
