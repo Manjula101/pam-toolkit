@@ -1,0 +1,70 @@
+---
+# FortiOS: Auto-import & block malicious IPs from live threat feeds
+# Zero-Trust network enforcement
+# Enterprise Security Lab | Manjula Wickramasuriya
+
+- name: Import and block malicious IPs from live threat feeds
+  hosts: localhost
+  connection: local
+  vars:
+    fortios_host: "{{ fortios_host | default('192.168.1.99') }}"
+    fortios_token: "{{ fortios_token | default('your-api-token') }}"
+    threat_feeds:
+      - name: Emerging Threats Compromised
+        url: "https://rules.emergingthreats.net/blockrules/compromised-ips.txt"
+      - name: Abuse.ch URLhaus
+        url: "https://urlhaus.abuse.ch/downloads/text/"
+      - name: Spamhaus DROP
+        url: "https://www.spamhaus.org/drop/drop.txt"
+
+  tasks:
+    - name: Fetch threat feeds
+      ansible.builtin.uri:
+        url: "{{ item.url }}"
+        return_content: yes
+      loop: "{{ threat_feeds }}"
+      register: feed_content
+
+    - name: Extract IPs from feeds
+      ansible.builtin.set_fact:
+        malicious_ips: "{{ malicious_ips | default([]) + feed_content.content | regex_findall('^\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}(?!\\.)') }}"
+
+    - name: Create FortiOS address objects
+      fortinet.fortios.fortios_configuration:
+        host: "{{ fortios_host }}"
+        token: "{{ fortios_token }}"
+        vdom: "root"
+        data:
+          firewall.address:
+            name: "ThreatFeed-{{ item }}"
+            type: ipmask
+            subnet: "{{ item }}/32"
+      loop: "{{ malicious_ips | unique }}"
+
+    - name: Add IPs to address group
+      fortinet.fortios.fortios_configuration:
+        host: "{{ fortios_host }}"
+        token: "{{ fortios_token }}"
+        vdom: "root"
+        data:
+          firewall.addrgrp:
+            name: "Blocked-Threat-Feeds"
+            member: "{{ malicious_ips | unique | map('regex_replace', '^', 'ThreatFeed-') | list }}"
+    
+    - name: Apply deny policy
+      fortinet.fortios.fortios_configuration:
+        host: "{{ fortios_host }}"
+        token: "{{ fortios_token }}"
+        vdom: "root"
+        data:
+          firewall.policy:
+            policyid: 9999
+            name: "Block-Threat-Feed-IPs"
+            srcintf: "any"
+            dstintf: "any"
+            srcaddr: "Blocked-Threat-Feeds"
+            dstaddr: "all"
+            action: deny
+            schedule: "always"
+            service: "ALL"
+            logtraffic: all
