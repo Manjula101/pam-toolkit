@@ -1,0 +1,47 @@
+# Teleport: Complete Just-In-Time (JIT) Access System
+# Zero Trust with Approval Workflow + Auto-Expiry
+# Enterprise Security Lab | Manjula Wickramasuriya
+
+---
+# 1. JIT Requester role
+kind: role
+version: v7
+metadata:
+  name: jit-requester
+spec:
+  options:
+    max_session_ttl: 12h
+  allow:
+    request:
+      roles: ["jit-dev-access", "jit-db-access"]
+      search_as_roles: ["jit-dev-access", "jit-db-access"]
+    logins: ["readonly"]
+---
+# 2. JIT Approver role
+kind: role
+version: v7
+metadata:
+  name: jit-approver
+spec:
+  allow:
+    review_requests:
+      roles: ["jit-dev-access", "jit-db-access"]
+      where: 'contains(user.spec.traits["team"], "engineering")'
+---
+# 3. JIT Dev Access role (2h, IP pinning, per-session MFA)
+kind: role
+version: v7
+metadata:
+  name: jit-dev-access
+spec:
+  options:
+    max_session_ttl: 2h
+    pin_source_ip: true
+    require_session_mfa: true
+    request_access: always
+  allow:
+    logins: ["ubuntu"]
+    node_labels:
+      env: "dev"
+---
+# 4. Apply with: tctl create -f jit-access-complete.yml
