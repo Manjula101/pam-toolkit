@@ -1,3 +1,5 @@
+[![Stargazers](https://img.shields.io/github/stars/Manjula101/pam-toolkit?style=social)](https://github.com/Manjula101/pam-toolkit/stargazers)
+[![Visitors](https://visitor-badge.laobi.icu/badge?page_id=Manjula101.pam-toolkit)](https://github.com/Manjula101/pam-toolkit)
 # PAM Toolkit — Open-Source Privileged Access Automation
 > Enterprise-grade PAM workflows · Demo-safe · 100% open-source
 
