@@ -1,0 +1,29 @@
+name: CI – PAM Toolkit
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.12'
+
+    - name: Lint Python files
+      run: |
+        pip install flake8
+        flake8 crowdstrike/  # Lint your scripts
+
+    - name: Run demo tests
+      run: |
+        python crowdstrike/noisy-hosts.py  # Your demo-safe script
+        echo "All tests passed!"
