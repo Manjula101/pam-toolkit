@@ -1,6 +1,7 @@
 # PAM Toolkit – Open-Source Privileged Access Automation
 [![Stargazers](https://img.shields.io/github/stars/Manjula101/pam-toolkit?style=social)](https://github.com/Manjula101/pam-toolkit/stargazers)
 [![Visitors](https://visitor-badge.laobi.icu/badge?page_id=Manjula101.pam-toolkit)](https://github.com/Manjula101/pam-toolkit)
+[![CI](https://github.com/Manjula101/pam-toolkit/actions/workflows/ci.yml/badge.svg)](https://github.com/Manjula101/pam-toolkit/actions/workflows/ci.yml)
 
 > **Zero-standing-privilege automation suite** – 5 enterprise-grade tools merged into official repos
 
