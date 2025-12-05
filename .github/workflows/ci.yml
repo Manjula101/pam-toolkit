@@ -9,21 +9,38 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-
+    strategy:
+      matrix:
+        python-version: ['3.10', '3.11', '3.12']
+    
     steps:
     - uses: actions/checkout@v4
-
-    - name: Set up Python
+    
+    - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v4
       with:
-        python-version: '3.12'
-
+        python-version: ${{ matrix.python-version }}
+        cache: 'pip'
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install flake8==7.0.0
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+    
     - name: Lint Python files
       run: |
-        pip install flake8
-        flake8 crowdstrike/  # Lint your scripts
-
+        flake8 crowdstrike/ --count --show-source --statistics
+    
     - name: Run demo tests
       run: |
-        python crowdstrike/noisy-hosts.py  # Your demo-safe script
-        echo "All tests passed!"
+        set -e
+        python crowdstrike/noisy-hosts.py
+        echo "✅ All tests passed!"
+    
+    - name: Test summary
+      if: always()
+      run: |
+        echo "### Test Results 🚀" >> $GITHUB_STEP_SUMMARY
+        echo "- Python Version: ${{ matrix.python-version }}" >> $GITHUB_STEP_SUMMARY
+        echo "- Status: ${{ job.status }}" >> $GITHUB_STEP_SUMMARY
