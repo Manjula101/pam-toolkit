@@ -44,10 +44,10 @@ class FalconRTRReplay:
             {"time": "10:01:05", "cmd": "cat suspicious_file.txt", "output": "Suspicious content..."}
         ]
         for idx, cmd in enumerate(demo_commands, 1):
-            print(f"\n[{idx}] 2025-12-01T{cmd['time']}Z")
+            print(f"\n[{{idx}}] 2025-12-01T{cmd['time']}Z")
             print(f" Command: {cmd['cmd']}")
             print(f" Status: success")
-            print(f" Output:\n {cmd['output']}")
+            print(f" Output:\n {{cmd['output']}}")
         print("-"*60)
 
 def main():
