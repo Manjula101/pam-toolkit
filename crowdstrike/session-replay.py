@@ -5,7 +5,6 @@ Enterprise Security Lab | Manjula Wickramasuriya
 Endpoint Behavior Analytics
 """
 import os
-import sys
 from falconpy import RealTimeResponse
 
 
@@ -32,7 +31,8 @@ class FalconRTRReplay:
             if not client_id or not client_secret:
                 raise ValueError(
                     "Missing credentials. Set FALCON_CLIENT_ID and "
-                    "FALCON_CLIENT_SECRET environment variables or pass them directly."
+                    "FALCON_CLIENT_SECRET environment variables or pass them "
+"directly."
                 )
 
             self.rtr = RealTimeResponse(
@@ -56,7 +56,10 @@ class FalconRTRReplay:
             response = self.rtr.list_sessions(ids=session_id)
 
             if response['status_code'] != 200:
-                print(f"[ERROR] Failed to fetch session: {response['body']['errors']}")
+                print(
+    f"[ERROR] Failed to fetch session: "
+    f"{response['body']['errors']}"
+)
                 return
 
             sessions = response['body']['resources']
@@ -154,7 +157,7 @@ class FalconRTRReplay:
         for idx, cmd in enumerate(demo_commands, 1):
             print(f"\n[{idx}] 2025-11-18T{cmd['time']}Z")
             print(f" Command: {cmd['cmd']}")
-            print(f" Status: success")
+            print(" Status: success")
             print(f" Output:\n {cmd['output']}")
 
         print("-"*60)
