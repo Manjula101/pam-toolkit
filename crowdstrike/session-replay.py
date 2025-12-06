@@ -34,11 +34,11 @@ class FalconRTRReplay:
         print("\nCOMMAND HISTORY:")
         print("-" * 60)
 
-        demo_commands = [
-            {"time": "10:00:15", "cmd": "pwd", "output": "/home/user"},
-            {"time": "10:00:23", "cmd": "ls -la", "output": "total 48\n..."},
-            {"time": "10:01:05", "cmd": "cat file.txt", "output": "Sensitive data..."},
-        ]
+ demo_commands = [
+    {"time": "10:00:15", "cmd": "pwd", "output": "/home/user"},
+    {"time": "10:00:23", "cmd": "ls -la", "output": "total 48"},
+    {"time": "10:01:05", "cmd": "cat file.txt", "output": "Sensitive data"}
+]
 
         for idx, cmd in enumerate(demo_commands, 1):
             time_stamp = f"2025-12-01T{cmd['time']}Z"
