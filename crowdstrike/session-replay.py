@@ -52,5 +52,8 @@ class FalconRTRReplay:
 if __name__ == "__main__":
     demo = "--demo" in sys.argv or not os.getenv("FALCON_CLIENT_ID")
     replay = FalconRTRReplay(demo_mode=demo)
-    session = sys.argv[1] if len(sys.argv) > 1 and sys.argv[1] != "--demo" else "demo-123"
+   if len(sys.argv) > 1 and sys.argv[1] != "--demo":
+    session = sys.argv[1]
+else:
+    session = "demo-123"
     replay.replay_session(session)
