@@ -15,7 +15,7 @@ class FalconRTRReplay:
     def __init__(self, demo_mode=True):
         self.demo_mode = demo_mode
         if demo_mode:
-            print("[INFO] Running in DEMO mode - no real API calls\n")
+            print("[INFO] Running in DEMO mode")
 
     def replay_session(self, session_id="demo-123"):
         """Replay session in demo mode."""
@@ -34,15 +34,14 @@ class FalconRTRReplay:
         print("\nCOMMAND HISTORY:")
         print("-" * 60)
 
- demo_commands = [
-    {"time": "10:00:15", "cmd": "pwd", "output": "/home/user"},
-    {"time": "10:00:23", "cmd": "ls -la", "output": "total 48"},
-    {"time": "10:01:05", "cmd": "cat file.txt", "output": "Sensitive data"}
-]
+        demo_commands = [
+            {"time": "10:00:15", "cmd": "pwd", "output": "/home/user"},
+            {"time": "10:00:23", "cmd": "ls -la", "output": "total 48"},
+            {"time": "10:01:05", "cmd": "cat file.txt", "output": "Sensitive data"},
+        ]
 
         for idx, cmd in enumerate(demo_commands, 1):
-            time_stamp = f"2025-12-01T{cmd['time']}Z"
-            print(f"\n[{idx}] {time_stamp}")
+            print(f"\n[{idx}] 2025-12-01T{cmd['time']}Z")
             print(f" Command: {cmd['cmd']}")
             print(" Status: success")
             print(f" Output:\n {cmd['output']}")
